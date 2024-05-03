@@ -79,6 +79,18 @@ class Autoencoder:
             print(f'epoch: {epoch}, loss: {epoch_loss}')
 
         return train_loss
+    
+    def test(self, data, targets):
+
+        loss_fn = nn.MSELoss()
+        test_loss = 0
+        
+        for idx in range(len(data)):
+            out = self.forward(data[idx:idx+1])
+            test_loss += loss_fn(out, targets[idx:idx+1]).item()
+        
+        test_loss /= len(data)
+        return test_loss
   
 if __name__ == '__main__':
 
